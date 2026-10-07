@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { NATURES } from "@/lib/data";
 import { sendInquiry } from "@/lib/api";
+import Roll from "./Roll";
 
 const EMPTY = { name: "", email: "", nature: "wedding", date_or_season: "", location: "", message: "" };
 
@@ -25,26 +26,26 @@ export default function Contact() {
   };
 
   return (
-    <section className="section" id="contact">
-      <div className="wrap contact">
+    <section className="section contact" id="contact">
+      <div className="wrap contact__grid">
         <div className="contact__intro" data-reveal>
-          <p className="kicker">Initiate Contact</p>
+          <p className="kicker-serif kicker--ink">INITIATE CONTACT</p>
           <h2>Begin a Conversation</h2>
-          <p>
+          <p className="contact__lede">
             We treat every inquiry with prompt discretion and personal attention. Tell us about your projected
             gathering, creative residency, or editorial assignment.
           </p>
-          <dl>
+          <dl className="contact__details">
             <div>
-              <dt>Direct Studio Email</dt>
-              <dd><a href="mailto:commissions@framestudio.co">commissions@framestudio.co</a></dd>
+              <dt className="kicker-serif kicker--ink">DIRECT STUDIO EMAIL</dt>
+              <dd className="contact__email"><a href="mailto:commissions@framestudio.co">commissions@framestudio.co</a></dd>
             </div>
             <div>
-              <dt>Studio Ateliers</dt>
-              <dd>7 Rue de Tournon, 75006 Paris<br />14 Redchurch St, Shoreditch, London</dd>
+              <dt>STUDIO ATELIERS</dt>
+              <dd className="contact__address">7 Rue de Tournon, 75006 Paris<br />14 Redchurch St, Shoreditch, London</dd>
             </div>
             <div>
-              <dt>Direct Concierge</dt>
+              <dt>DIRECT CONCIERGE</dt>
               <dd>WhatsApp Monograph Office: +33 (0) 1 42 68 09 11</dd>
             </div>
           </dl>
@@ -53,39 +54,51 @@ export default function Contact() {
         <form className="form" onSubmit={submit} data-reveal data-delay="0.1">
           <div className="form__row">
             <label>
-              Your full name(s) *
+              YOUR FULL NAME(S) *
               <input required value={form.name} onChange={set("name")} placeholder="e.g. Clara & Julian" />
             </label>
             <label>
-              Email address *
+              EMAIL ADDRESS *
               <input required type="email" value={form.email} onChange={set("email")} placeholder="clara@domain.com" />
             </label>
           </div>
-          <label>
-            Nature of commission *
-            <select value={form.nature} onChange={set("nature")}>
+
+          <fieldset>
+            <legend>NATURE OF COMMISSION *</legend>
+            <div className="chips">
               {NATURES.map((n) => (
-                <option key={n.value} value={n.value}>{n.label}</option>
+                <button
+                  type="button"
+                  key={n.value}
+                  aria-pressed={form.nature === n.value}
+                  className={form.nature === n.value ? "is-active" : ""}
+                  onClick={() => setForm({ ...form, nature: n.value })}
+                >
+                  {n.label.toUpperCase()}
+                </button>
               ))}
-            </select>
-          </label>
+            </div>
+          </fieldset>
+
           <div className="form__row">
             <label>
-              Date or projected season *
-              <input required value={form.date_or_season} onChange={set("date_or_season")} placeholder="e.g. September 2025" />
+              DATE OR PROJECTED SEASON *
+              <input required value={form.date_or_season} onChange={set("date_or_season")} className="ph-body" placeholder="e.g. September 2025" />
             </label>
             <label>
-              Location or venue
-              <input value={form.location} onChange={set("location")} placeholder="e.g. Lake Como, Italy" />
+              LOCATION OR VENUE
+              <input value={form.location} onChange={set("location")} className="ph-body" placeholder="e.g. Lake Como, Italy" />
             </label>
           </div>
+
           <label>
-            Tell us about your celebration, aesthetic vision, or project details
-            <textarea rows={4} value={form.message} onChange={set("message")} placeholder="Atmosphere, approximate guest count, planned schedule, or specific requirements..." />
+            TELL US ABOUT YOUR CELEBRATION, AESTHETIC VISION, OR PROJECT DETAILS
+            <textarea rows={2} value={form.message} onChange={set("message")} placeholder="Atmosphere, approximate guest count, planned schedule, or specific requirements..." />
           </label>
+
           <div className="form__foot">
-            <button className="btn btn--dark" disabled={state.status === "sending"}>
-              {state.status === "sending" ? "Sending…" : "Send Commission Inquiry"}
+            <button className="btn btn--black" disabled={state.status === "sending"}>
+              <Roll>{state.status === "sending" ? "SENDING…" : "SEND COMMISSION INQUIRY"}</Roll>
             </button>
             <span>Replies dispatched within 24 hours.</span>
           </div>

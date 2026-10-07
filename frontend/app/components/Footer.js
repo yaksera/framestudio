@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { subscribe } from "@/lib/api";
 
+const SOCIAL = ["INSTAGRAM", "EDITORIAL SUBSTACK", "PINTEREST"];
+
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [state, setState] = useState({ status: "idle", message: "" });
@@ -20,30 +22,41 @@ export default function Footer() {
   };
 
   return (
-    <footer className="footer" id="journal">
-      <div className="wrap footer__grid">
-        <div>
-          <p className="kicker">Currently accepting bookings for 2025/2026</p>
-          <h2>Nepal &amp; India · Available Globally for Commissions</h2>
-          <p>Documentary fine art, monograph publications, and bespoke campaign commissions for discerning houses and collectors.</p>
-          <p className="footer__brand">FRAME STUDIO</p>
-          <nav className="footer__social" aria-label="Social">
-            {["Instagram", "Editorial", "Substack", "Pinterest"].map((s) => (
-              <a key={s} href="#top">{s}</a>
-            ))}
-          </nav>
+    <>
+      <div className="band" aria-hidden="true" />
+      <footer className="footer" id="journal">
+        <div className="wrap">
+          <div className="footer__top">
+            <div className="footer__about">
+              <span className="chip chip--white">
+                <i className="dot" /> CURRENTLY ACCEPTING BOOKINGS FOR 2025/2026
+              </span>
+              <h2>Nepal &amp; India • Available Globally for Commissions</h2>
+              <p>Documentary fine art, monograph publications, and bespoke campaign commissions for discerning houses and collectors.</p>
+            </div>
+            <div className="footer__news">
+              <p className="footer__label">PRIVATE PRINT DROPS</p>
+              <p>Receive archival folio notices, curatorial essays, and rare physical edition launches.</p>
+              <form className="news" onSubmit={submit}>
+                <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your correspondence email" aria-label="Email" />
+                <button disabled={state.status === "sending"}>Join</button>
+              </form>
+              <p className={`form__msg form__msg--${state.status}`} role="status" aria-live="polite">{state.message}</p>
+            </div>
+          </div>
+
+          <p className="wordmark" aria-hidden="true">FRAME STUDIO</p>
+
+          <div className="footer__bottom">
+            <nav aria-label="Social">
+              {SOCIAL.map((s) => (
+                <a key={s} href="#top">{s}</a>
+              ))}
+            </nav>
+            <p>© 2026 FRAME STUDIO. ALL RIGHTS RESERVED.</p>
+          </div>
         </div>
-        <div>
-          <p className="kicker">Private Print Drops</p>
-          <p>Receive archival folio notices, curatorial essays, and rare physical edition launches.</p>
-          <form className="news" onSubmit={submit}>
-            <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your correspondence email" aria-label="Email" />
-            <button disabled={state.status === "sending"}>Join</button>
-          </form>
-          <p className={`form__msg form__msg--${state.status}`} role="status" aria-live="polite">{state.message}</p>
-          <p className="footer__legal">© 2026 Frame Studio. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }

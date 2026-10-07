@@ -46,9 +46,9 @@ export default function Experience() {
       gsap.utils.toArray("[data-parallax]").forEach((el) => {
         gsap.fromTo(
           el,
-          { yPercent: -8 },
+          { yPercent: -10 },
           {
-            yPercent: 8,
+            yPercent: 10,
             ease: "none",
             scrollTrigger: { trigger: el.parentElement, start: "top bottom", end: "bottom top", scrub: true },
           }

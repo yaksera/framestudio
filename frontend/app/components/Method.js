@@ -2,10 +2,10 @@ import { STEPS } from "@/lib/data";
 
 export default function Method() {
   return (
-    <section className="section" id="method">
+    <section className="section method" id="method">
       <div className="wrap">
-        <header className="head head--center" data-reveal>
-          <p className="kicker">Methodology</p>
+        <header data-reveal>
+          <p className="kicker-serif">METHODOLOGY</p>
           <h2>The Photographic Cadence</h2>
           <p className="lede">
             From first correspondence to archival handover, we protect space for natural rhythm, intentional

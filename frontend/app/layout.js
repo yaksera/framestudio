@@ -1,16 +1,22 @@
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { EB_Garamond, Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const serif = Cormorant_Garamond({
+const serif = EB_Garamond({
   variable: "--font-serif",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["400", "500"],
 });
 
-const sans = Inter({
+const sans = Plus_Jakarta_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
+const ui = Inter({
+  variable: "--font-ui",
+  subsets: ["latin"],
+  weight: ["500", "600"],
 });
 
 export const metadata = {
@@ -21,7 +27,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="en" className={`${serif.variable} ${sans.variable} ${ui.variable}`}>
       <body>{children}</body>
     </html>
   );
